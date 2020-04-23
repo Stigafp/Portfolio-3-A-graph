@@ -35,18 +35,36 @@ public class AStarGraph {
         {
             vertices.get(i).seth(Manhattan(vertices.get(i),destination));
         }
+
         start.setg(0.0);
         start.calculatef();
         //Start algorithm
         System.out.println("Start Algorithm");
         //Implement the Astar algorithm
 
-        //while(!Openlist.isEmpty()){
-        //    Vertex Current =
-        //}
 
+        while(!Openlist.isEmpty()){
+            Current = Openlist.remove();
+
+            if(Current == destination){
+                return true;
+            }
+            Closedlist.add(Current);
+            for (int i = 0; i < Current.getNeighbours().size(); i++) {
+
+                double weight = Current.getNeighbourDistance().get(i);
+                double tempGofV = Current.getg() + weight;
+                if(tempGofV < ){}
+            }
+        }
+
+
+
+        //hint fra Line
         //tempgofv = Current.g + weight(current,v)
         //weight = current.getNeighborDistance.get(i)
+
+
 
         return false;
     }
