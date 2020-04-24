@@ -43,6 +43,27 @@ public class AStarGraph {
         System.out.println("Start Algorithm");
         //Implement the Astar algorithm
 
+        /*
+        openlist.add(startvertex)
+        closedlist = empty Current =null
+        while ( !openlist.isempty):
+            Current = remove vertex with min f from openlist
+            if (Current = goal)
+                return 1;
+            closedlist.add(Current)
+            for (each vertex v in outedges of Current ):
+                tempgofv = Current.g + weight(current,v)
+                if (tempgofv < v.g )
+                    v.prev = Current
+
+                    v.g = tempgofv
+                    v.f = v.g + v.h
+
+                    if v not in closedlist && v not in openlist
+                        openlist.add(v)
+                    if (in open list you might want to remove and add again
+                Return -1;
+         */
 
         while(!Openlist.isEmpty()){
             Current = Openlist.remove();
@@ -57,6 +78,9 @@ public class AStarGraph {
                 double tempGofV = Current.getg() + weight;
                 if(tempGofV < Current.getNeighbours().get(i).getg()){
                     Current.getNeighbours().get(i).setPrev(Current);
+                    Current.setg(tempGofV);
+
+
 
                     //lav færdig
 
