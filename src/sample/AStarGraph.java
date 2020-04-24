@@ -26,7 +26,6 @@ public class AStarGraph {
           return false;
         PriorityQueue<Vertex> Openlist = new PriorityQueue<Vertex>();
         ArrayList<Vertex> Closedlist = new ArrayList<Vertex>();
-        Openlist.offer(start);
         Vertex Current;
         ArrayList<Vertex> CurrentNeighbors;
         Vertex Neighbor;
@@ -38,6 +37,8 @@ public class AStarGraph {
 
         start.setg(0.0);
         start.calculatef();
+        Openlist.offer(start);
+
         //Start algorithm
         System.out.println("Start Algorithm");
         //Implement the Astar algorithm
@@ -54,7 +55,18 @@ public class AStarGraph {
 
                 double weight = Current.getNeighbourDistance().get(i);
                 double tempGofV = Current.getg() + weight;
-                if(tempGofV < ){}
+                if(tempGofV < Current.getNeighbours().get(i).getg()){
+                    Current.getNeighbours().get(i).setPrev(Current);
+
+                    //lav færdig
+
+                    if((!Closedlist.contains(Current.getNeighbours().get(i)))&&(!Openlist.contains(Current.getNeighbours().get(i)))){
+                        Openlist.offer(Current.getNeighbours().get(i));
+                    } else if(Openlist.contains(Current.getNeighbours().get(i))){
+                        Openlist.remove(Current.getNeighbours().get(i));
+                        Openlist.offer(Current.getNeighbours().get(i));
+                    }
+                }
             }
         }
 
@@ -134,7 +146,7 @@ class Vertex implements Comparable<Vertex>{
     @Override
     public int compareTo(Vertex o) {
 //Implement this
-//
+//compare f
         return 0;
    }
 }
