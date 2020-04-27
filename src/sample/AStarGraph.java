@@ -71,6 +71,7 @@ public class AStarGraph {
             if(Current == destination){
                 return true;
             }
+
             Closedlist.add(Current);
             for (int i = 0; i < Current.getNeighbours().size(); i++) {
 
@@ -78,7 +79,13 @@ public class AStarGraph {
                 double tempGofV = Current.getg() + weight;
                 if(tempGofV < Current.getNeighbours().get(i).getg()){
                     Current.getNeighbours().get(i).setPrev(Current);
-                    Current.setg(tempGofV);
+
+                    Current.getNeighbours().get(i).setg(tempGofV);
+
+                    Current.getNeighbours().get(i).calculatef();
+
+                    //Current.getNeighbours().get(i).calculatef() = Current.getNeighbours().get(i).getg() +  Current.getNeighbours().get(i).geth();
+
 
 
 
@@ -133,19 +140,20 @@ class Vertex implements Comparable<Vertex>{
     private Integer x;
     private Integer y;
     private Vertex prev =null;
+
     public Vertex(String id, int x_cor,int y_cor){
-        this.id=id;
-        this.x=x_cor;
+        this.id = id;
+        this.x = x_cor;
         this.y = y_cor;
-        f=Double.POSITIVE_INFINITY;
-        g=Double.POSITIVE_INFINITY;
-        h=0.0;
+        f = Double.POSITIVE_INFINITY;
+        g = Double.POSITIVE_INFINITY;
+        h = 0.0;
     }
     public void addOutEdge(Vertex toV, Double dist){
         Neighbours.add(toV);
         NeighbourDistance.add(dist);
     }
-    public ArrayList<Vertex> getNeighbours(){
+    public ArrayList<Vertex> getNeighbours() {
         return Neighbours;
     }
     public ArrayList<Double> getNeighbourDistance(){
@@ -155,7 +163,8 @@ class Vertex implements Comparable<Vertex>{
     public Integer getx(){ return x; }
     public Integer gety(){return y; }
     public Double getf() { return f; }
-    public void calculatef(){ f=g+h; }
+    public void calculatef() {
+        f=g+h; }
 
     public Double getg() { return g; }
 
@@ -167,10 +176,15 @@ class Vertex implements Comparable<Vertex>{
     public void printVertex(){
         System.out.println(id + " g: "+g+ ", h: "+h+", f: "+f);
     }
+
     @Override
-    public int compareTo(Vertex o) {
+    public int compareTo(Vertex vertex) {
+        if (this.getf() > vertex.getf())
+            return 1;
+        if (this.getf() < vertex.getf())
+            return -1;
+        return 0;
 //Implement this
 //compare f
-        return 0;
-   }
+    }
 }
