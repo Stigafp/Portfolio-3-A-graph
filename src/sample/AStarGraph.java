@@ -21,6 +21,7 @@ public class AStarGraph {
         v2.addOutEdge(v1,dist);
     }
 
+    //input estimation choice(int)
     public boolean A_Star(Vertex start, Vertex destination) {
         if (start==null || destination==null)
           return false;
@@ -32,8 +33,12 @@ public class AStarGraph {
         //Initialize h with chosen heuristic
         for (int i =0; i<vertices.size();i++)
         {
+            if(estimation = 1)
             vertices.get(i).seth(Manhattan(vertices.get(i),destination));
+            else
         }
+
+
 
         start.setg(0.0);
         start.calculatef();
