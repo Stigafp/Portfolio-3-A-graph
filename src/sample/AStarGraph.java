@@ -11,37 +11,48 @@ public class AStarGraph {
         vertices=new ArrayList<Vertex>();
     }
 
+    // bliver kald fra main ved Mymaze.addvertex
     public void addvertex(Vertex v) {
-
         vertices.add(v);
     }
 
+    // bliver kald fra main. Den tilføjer naboer til de forskellige vertex's
+    // newconnection bliver sendt til addOutEdge hvor listerne med Neighbors er
     public void newconnection(Vertex v1, Vertex v2, Double dist) {
         v1.addOutEdge(v2,dist);
         v2.addOutEdge(v1,dist);
     }
 
-    //input estimation choice(int)
-    public boolean A_Star(Vertex start, Vertex destination) {
+    // Vertex start vælger start vertex. Vertex destination slut destination.
+    // int choise vælger imellem Manhatte og Euclidean
+    public boolean A_Star(Vertex start, Vertex destination, int choice) {
         if (start==null || destination==null)
           return false;
+
+        // Openlist er de vertex's der er igangværende
         PriorityQueue<Vertex> Openlist = new PriorityQueue<Vertex>();
+        // Closedlist er  vertex's programmet har passeret
         ArrayList<Vertex> Closedlist = new ArrayList<Vertex>();
+        // den active vertex
         Vertex Current;
         ArrayList<Vertex> CurrentNeighbors;
         Vertex Neighbor;
         //Initialize h with chosen heuristic
+        // estimeret afstand fra start til destination via choice
         for (int i =0; i<vertices.size();i++)
         {
-            if(estimation = 1)
+            if(choice == 1)
             vertices.get(i).seth(Manhattan(vertices.get(i),destination));
-            else
+            else {
+                vertices.get(i).seth(Euclidean(vertices.get(i),destination));
+            }
+
         }
 
-
-
+        // sætter afstanden fra sig selv til 0
         start.setg(0.0);
         start.calculatef();
+        // insætter start vertex hvis der er plads i Openlist
         Openlist.offer(start);
 
         //Start algorithm
@@ -70,34 +81,34 @@ public class AStarGraph {
                 Return -1;
          */
 
+        // så længe der er indhold i Openlist kør while loop
         while(!Openlist.isEmpty()){
+            // igangværende vertex fjernes fra Openlist da den er aktiv
             Current = Openlist.remove();
 
             if(Current == destination){
                 return true;
             }
 
+            // tilføjer aktive vertex til Closedlist og går igennem Nabo vertex's
             Closedlist.add(Current);
             for (int i = 0; i < Current.getNeighbours().size(); i++) {
 
+                // udregner fra igangværende vertex, destinationen til vertex(i)
                 double weight = Current.getNeighbourDistance().get(i);
                 double tempGofV = Current.getg() + weight;
+                // tjekker hvilken nabo vertex har den laveste g værdi
                 if(tempGofV < Current.getNeighbours().get(i).getg()){
+                    // sætter aktive vertex til at være passeret vertex
                     Current.getNeighbours().get(i).setPrev(Current);
-
+                    // sætter den laveste tempGofV til den nuværende g værdi
                     Current.getNeighbours().get(i).setg(tempGofV);
-
+                    // udregner f værdi ved g + h(valgte metode Manhatten/Euclidean)
                     Current.getNeighbours().get(i).calculatef();
-
-                    //Current.getNeighbours().get(i).calculatef() = Current.getNeighbours().get(i).getg() +  Current.getNeighbours().get(i).geth();
-
-
-
-
-                    //lav færdig
-
+                    // hvis nabo vertix(i) ikke er i Closedlist og ikke er i Openlist, tilføj den til Openlist
                     if((!Closedlist.contains(Current.getNeighbours().get(i)))&&(!Openlist.contains(Current.getNeighbours().get(i)))){
                         Openlist.offer(Current.getNeighbours().get(i));
+                    // hvis Openlist indeholder nabo vertex(i), fjern og tilføj den igen
                     } else if(Openlist.contains(Current.getNeighbours().get(i))){
                         Openlist.remove(Current.getNeighbours().get(i));
                         Openlist.offer(Current.getNeighbours().get(i));
@@ -105,59 +116,56 @@ public class AStarGraph {
                 }
             }
         }
-
-
-
-        //hint fra Line
-        //tempgofv = Current.g + weight(current,v)
-        //weight = current.getNeighborDistance.get(i)
-
-
-
+        // printer "DID NOT FIND A PATH!!" fra main
         return false;
     }
 
+    // vertikal afstand + horizontal afstand udregnede i positive tal
     public Double Manhattan(Vertex from,Vertex goal){
-        //Implement this
-
         double distance = Math.abs(goal.getx()-from.getx()) + Math.abs(goal.gety()-from.gety());
         return distance;
     }
 
+    // den direkte diagotale afstand
     public Double Euclidean( Vertex from,Vertex to){
-        //Implement this
-
         double x = to.getx()-from.getx();
         double y = to.gety()-from.gety();
-
         double distance = Math.sqrt((x*x)+(y*y));
         return distance;
     }
 }
 
+// data en vertex indeholder
 class Vertex implements Comparable<Vertex>{
+    private ArrayList<Vertex> Neighbours = new ArrayList<Vertex>();
+    private ArrayList<Double> NeighbourDistance = new ArrayList<Double>();
+    // variabler for vertex
     private String id;
-    private ArrayList<Vertex> Neighbours=new ArrayList<Vertex>();
-    private ArrayList<Double> NeighbourDistance =new ArrayList<Double>();
     private Double f;
     private Double g;
     private Double h;
     private Integer x;
     private Integer y;
-    private Vertex prev =null;
+    private Vertex prev = null;
 
+    // constructor kaldt fra main
     public Vertex(String id, int x_cor,int y_cor){
         this.id = id;
         this.x = x_cor;
         this.y = y_cor;
+        // den aktive vertex vej til vertex(i) vil altid være uendelig
+        // hvis der er mere en kæde i rækken ud til vertex(i)
         f = Double.POSITIVE_INFINITY;
         g = Double.POSITIVE_INFINITY;
         h = 0.0;
     }
+    // tilføjer vertex nabo til Naboliste for de forskellige vertex's
     public void addOutEdge(Vertex toV, Double dist){
         Neighbours.add(toV);
         NeighbourDistance.add(dist);
     }
+
+    // getters and setters
     public ArrayList<Vertex> getNeighbours() {
         return Neighbours;
     }
@@ -169,19 +177,21 @@ class Vertex implements Comparable<Vertex>{
     public Integer gety(){return y; }
     public Double getf() { return f; }
     public void calculatef() {
-        f=g+h; }
+        f = g + h; }
 
     public Double getg() { return g; }
 
-    public void setg(Double newg){ g=newg; }
+    public void setg(Double newg){ g = newg; }
     public Double geth(){ return h; }
-    public void seth(Double estimate){ h=estimate; }
+    public void seth(Double estimate){ h = estimate; }
     public Vertex getPrev() { return prev; }
-    public void setPrev(Vertex v){prev=v;}
+    public void setPrev(Vertex v){
+        prev = v;}
     public void printVertex(){
         System.out.println(id + " g: "+g+ ", h: "+h+", f: "+f);
     }
 
+    //
     @Override
     public int compareTo(Vertex vertex) {
         if (this.getf() > vertex.getf())
@@ -189,7 +199,5 @@ class Vertex implements Comparable<Vertex>{
         if (this.getf() < vertex.getf())
             return -1;
         return 0;
-//Implement this
-//compare f
     }
 }

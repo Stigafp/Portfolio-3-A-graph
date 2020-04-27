@@ -5,9 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.Stack;
 
+// Superclass: Application/sample.fxlm. Subclass: main
 public class Main extends Application {
 
     @Override
@@ -26,7 +26,6 @@ public class Main extends Application {
         launch(args);
     }
 
-
     public AStarGraph CreateGraph() {
 
         System.out.println("creating graph");
@@ -34,7 +33,7 @@ public class Main extends Application {
         AStarGraph MyMaze = new AStarGraph();
         // Make the graph provided to you in the diagram and table
         //The vertices must be constructed like A
-        Vertex A = new Vertex("A",0,4);
+        Vertex A = new Vertex ("A",0,4);
         Vertex B = new Vertex ("B", 1,7);
         Vertex C = new Vertex ("C", 4,0);
         Vertex D = new Vertex ("D", 3,7);
@@ -72,10 +71,12 @@ public class Main extends Application {
 
         //Vertex J=null; //This must be changed
 
-        if(MyMaze.A_Star(A,J))
+        // choise 1 skal være bruger input i GUI
+        // A og J skal også være bruger input i GUI
+        if(MyMaze.A_Star(A,J, 1))
         {
             System.out.println("Found a path");
-            Vertex pvertex=J;
+            Vertex pvertex = J;
             Stack<Vertex> Path = new Stack<>();
             int limit=0;
             while (pvertex!=null)
