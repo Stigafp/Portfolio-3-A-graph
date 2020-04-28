@@ -97,7 +97,7 @@ public class Controller {
         if(MyMaze.A_Star(start, destination, method))
         {
             System.out.println("Found a path");
-            Vertex pvertex = null;
+            Vertex pvertex = destination;
             Stack<Vertex> Path = new Stack<>();
             int limit=0;
             String temp = Path.pop().getid();
@@ -112,13 +112,18 @@ public class Controller {
                 limit = Path.size();
             for(int i=0 ; i<limit-1 ; i++)
                 System.out.print(Path.pop().getid() +" - > ");
+                printArea.appendText(Path.pop().getid());
 
-            if (limit>0)
+            if (limit>0) {
                 System.out.println(Path.pop().getid());
 
-        }
-        else
+            }
+
+        } else {
             return "DID NOT FIND A PATH!!";
+        }
+
+
 
 
     }
