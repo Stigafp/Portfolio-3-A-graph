@@ -7,8 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-
-import javax.swing.*;
 import java.util.Stack;
 
 public class Controller {
@@ -17,12 +15,10 @@ public class Controller {
     Vertex vertex;
 
     public AStarGraph CreateGraph() {
-
         System.out.println("creating graph");
 
         AStarGraph MyMaze = new AStarGraph();
-        // Make the graph provided to you in the diagram and table
-        //The vertices must be constructed like A
+
         Vertex A = new Vertex ("A",0,4);
         Vertex B = new Vertex ("B", 1,7);
         Vertex C = new Vertex ("C", 4,0);
@@ -62,6 +58,7 @@ public class Controller {
         return MyMaze;
     }
 
+    // print vertex række og afstand i GUI text felt
     public void printMyMaze(Vertex destination) {
             Vertex pvertex = destination;
             printArea.appendText("To " + destination.getid() + " Shortest length: " + destination.getf() + "\n");
@@ -81,53 +78,60 @@ public class Controller {
             }
         }
 
-    @FXML
-    ComboBox comboStart;
-
-    @FXML
-    ComboBox comboDestination;
-
-    @FXML
-    ComboBox comboEstimation;
-
-    @FXML
-    TextArea printArea;
-
     public void initialize() {
         System.out.println();
         comboStart.getItems().addAll(graphModel.getVertices());
         comboDestination.getItems().addAll(graphModel.getVertices());
+
+        // tilføjer "Manhattan" og "Euclidean" til listen som derefter bruges i Choose method knappen (comboEstimation)
         ObservableList<String> estimationMethod = FXCollections.observableArrayList("Manhattan", "Euclidean");
         comboEstimation.getItems().addAll(estimationMethod);
     }
 
     @FXML
+    ComboBox<Vertex> comboStart;
+
+    @FXML
+    ComboBox<Vertex> comboDestination;
+
+    @FXML
+    ComboBox<String> comboEstimation;
+
+    @FXML
+    TextArea printArea;
+
+    @FXML
+    // choose vertex start button
     void startVertexChoice(ActionEvent event) {
         System.out.println("Start vertex: " + comboStart.getValue());
     }
 
     @FXML
+    // choose vertex destination button
     void destinationVertexChoice(ActionEvent event) {
         System.out.println("Destination vertex: " + comboDestination.getValue());
     }
 
     @FXML
+    // choose method button
     void estimationChoice(ActionEvent event) {
         System.out.println("Estimation method: " + comboEstimation.getValue());
     }
 
     @FXML
+    // start pathfinder button
     void startPathfinder(ActionEvent event) {
-        graphModel.A_Star((Vertex)comboStart.getValue(), (Vertex)comboDestination.getValue(), (String) comboEstimation.getValue());
+        graphModel.A_Star(comboStart.getValue(), comboDestination.getValue(), comboEstimation.getValue());
     }
 
     @FXML
+    // print path button
     void printPath(ActionEvent event) {
-        printMyMaze((Vertex)comboDestination.getValue());
+        printMyMaze(comboDestination.getValue());
     }
 
-
     @FXML
+    // exit button
     void exitButton(ActionEvent event) {
         System.out.println("EXIT");
         Platform.exit();

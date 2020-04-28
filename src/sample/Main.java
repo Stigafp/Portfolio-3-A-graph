@@ -5,10 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.Stack;
 
-// Superclass: Application/sample.fxlm. Subclass: main
-public class Main extends Application {
+public class Main extends Application { // Superclass: Application/sample.fxlm. Subclass: main
 
     @Override
     public void start(Stage primaryStage) throws Exception {
