@@ -59,7 +59,8 @@ public class Controller {
 
         // choise 1 skal være bruger input i GUI
         // A og J skal også være bruger input i GUI
-        if(MyMaze.A_Star(comboStart.getValue(), J, 1))
+
+        if(MyMaze.A_Star(A, J, 1))
         {
             System.out.println("Found a path");
             Vertex pvertex = J;
@@ -106,7 +107,6 @@ public class Controller {
     void startVertexChoice(ActionEvent event) {
         System.out.print(comboStart.getValue());
 
-
     }
 
     @FXML
@@ -120,9 +120,16 @@ public class Controller {
     }
 
     @FXML
+    void startPathfinder(ActionEvent event) {
+
+    }
+
+    @FXML
     void exitButton(ActionEvent event) {
         System.out.println("test");
         Platform.exit();
     }
+
+    // grapModel.A_Star
 
 }

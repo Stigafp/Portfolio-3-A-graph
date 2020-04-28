@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,12 +29,6 @@
          </BorderPane.margin>
       </VBox>
    </left>
-   <bottom>
-      <Button mnemonicParsing="false" onAction="#exitButton" prefHeight="27.0" prefWidth="102.0" text="Exit" BorderPane.alignment="TOP_RIGHT">
-         <BorderPane.margin>
-            <Insets bottom="30.0" right="30.0" />
-         </BorderPane.margin></Button>
-   </bottom>
    <center>
       <VBox prefHeight="366.0" prefWidth="433.0" BorderPane.alignment="CENTER">
          <children>
@@ -57,4 +52,20 @@
             <Insets />
          </BorderPane.margin></VBox>
    </center>
+   <bottom>
+      <FlowPane prefHeight="49.0" prefWidth="599.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#startPathfinder" prefHeight="27.0" prefWidth="130.0" text="Start pathfinder">
+               <FlowPane.margin>
+                  <Insets left="170.0" />
+               </FlowPane.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#exitButton" prefHeight="27.0" prefWidth="78.0" text="Exit">
+               <FlowPane.margin>
+                  <Insets left="190.0" />
+               </FlowPane.margin>
+            </Button>
+         </children>
+      </FlowPane>
+   </bottom>
 </BorderPane>
