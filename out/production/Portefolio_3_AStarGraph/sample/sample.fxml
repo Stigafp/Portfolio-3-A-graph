@@ -42,7 +42,7 @@
                   <Insets top="72.0" />
                </VBox.margin>
             </ComboBox>
-            <ComboBox fx:id="comboEstimation" onAction="#estimationChoice" prefWidth="150.0">
+            <ComboBox fx:id="comboEstimation" onAction="#estimationChoice" prefWidth="150.0" promptText="Choose method">
                <VBox.margin>
                   <Insets top="75.0" />
                </VBox.margin>

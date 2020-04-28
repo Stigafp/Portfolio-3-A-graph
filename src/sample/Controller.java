@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -93,6 +95,9 @@ public class Controller {
     @FXML
     ComboBox comboDestination;
 
+    @FXML
+    ComboBox comboEstimation;
+
 
 
 
@@ -100,6 +105,8 @@ public class Controller {
         System.out.println("lklklæ");
         comboStart.getItems().addAll(graphModel.getVertices());
         comboDestination.getItems().addAll(graphModel.getVertices());
+        ObservableList<String> estimationMethod = FXCollections.observableArrayList("Manhatten", "Euclidean");
+        comboEstimation.getItems().addAll(estimationMethod);
 
     }
 
@@ -121,7 +128,7 @@ public class Controller {
 
     @FXML
     void startPathfinder(ActionEvent event) {
-
+        graphModel.A_Star(comboStart.getValue(), comboDestination.getValue(), comboEstimation.getValue());
     }
 
     @FXML
