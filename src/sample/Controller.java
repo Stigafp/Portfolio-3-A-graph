@@ -14,6 +14,7 @@ import java.util.Stack;
 public class Controller {
 
     AStarGraph graphModel = CreateGraph();
+    Vertex vertex;
 
     public AStarGraph CreateGraph() {
 
@@ -61,14 +62,13 @@ public class Controller {
         return MyMaze;
     }
 
-    public void printMyMaze( Vertex destination) {
+    public void printMyMaze(Vertex destination) {
             Vertex pvertex = destination;
             printArea.appendText("To " + destination.getid() + " Shortest length: " + destination.getf() + "\n");
             Stack<Vertex> Path = new Stack<>();
             int limit=0;
 
-            while (pvertex!=null)
-            {
+            while (pvertex!=null) {
                 Path.push(pvertex);
                 pvertex=pvertex.getPrev();
             }
@@ -76,9 +76,8 @@ public class Controller {
                 limit = Path.size();
             for(int i=0 ; i<limit-1 ; i++)
                 printArea.appendText(Path.pop().getid() +" - > ");
-
             if (limit>0) {
-                printArea.appendText(Path.pop().getid());
+                printArea.appendText(Path.pop().getid() + "\n");
             }
         }
 
@@ -130,7 +129,7 @@ public class Controller {
 
     @FXML
     void exitButton(ActionEvent event) {
-        System.out.println("test");
+        System.out.println("EXIT");
         Platform.exit();
     }
 }

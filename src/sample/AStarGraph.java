@@ -41,12 +41,13 @@ public class AStarGraph {
         // estimeret afstand fra start til destination via choice
         for (int i = 0; i< getVertices().size(); i++)
         {
-            if(choice =="Manhattan")
+            if(choice == "Manhattan")
+                System.out.println("Manhattan is running");
             getVertices().get(i).seth(Manhattan(getVertices().get(i),destination));
-            else {
+            if (choice == "Euclidean"){
+                System.out.println("Euclidean is running");
                 getVertices().get(i).seth(Euclidean(getVertices().get(i),destination));
             }
-
         }
 
         // sætter afstanden fra sig selv til 0
@@ -84,6 +85,7 @@ public class AStarGraph {
                     Current.getNeighbours().get(i).setg(tempGofV);
                     // udregner f værdi ved g + h(valgte metode Manhatten/Euclidean)
                     Current.getNeighbours().get(i).calculatef();
+                    System.out.println();
                     // hvis nabo vertix(i) ikke er i Closedlist og ikke er i Openlist, tilføj den til Openlist
                     if((!Closedlist.contains(Current.getNeighbours().get(i)))&&(!Openlist.contains(Current.getNeighbours().get(i)))){
                         Openlist.offer(Current.getNeighbours().get(i));
@@ -106,12 +108,12 @@ public class AStarGraph {
     }
 
     // den direkte diagotale afstand
+
     public Double Euclidean( Vertex from,Vertex to){
         double x = to.getx()-from.getx();
         double y = to.gety()-from.gety();
         double distance = Math.sqrt((x*x)+(y*y));
-        return distance;
-    }
+        return distance; }
 
     public ArrayList<Vertex> getVertices() {
         return vertices;
