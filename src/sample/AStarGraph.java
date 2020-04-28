@@ -8,12 +8,12 @@ public class AStarGraph {
 
     public AStarGraph() {
 
-        vertices=new ArrayList<Vertex>();
+        setVertices(new ArrayList<Vertex>());
     }
 
     // bliver kald fra main ved Mymaze.addvertex
     public void addvertex(Vertex v) {
-        vertices.add(v);
+        getVertices().add(v);
     }
 
     // bliver kald fra main. Den tilføjer naboer til de forskellige vertex's
@@ -39,12 +39,12 @@ public class AStarGraph {
         Vertex Neighbor;
         //Initialize h with chosen heuristic
         // estimeret afstand fra start til destination via choice
-        for (int i =0; i<vertices.size();i++)
+        for (int i = 0; i< getVertices().size(); i++)
         {
             if(choice == 1)
-            vertices.get(i).seth(Manhattan(vertices.get(i),destination));
+            getVertices().get(i).seth(Manhattan(getVertices().get(i),destination));
             else {
-                vertices.get(i).seth(Euclidean(vertices.get(i),destination));
+                getVertices().get(i).seth(Euclidean(getVertices().get(i),destination));
             }
 
         }
@@ -59,27 +59,6 @@ public class AStarGraph {
         System.out.println("Start Algorithm");
         //Implement the Astar algorithm
 
-        /*
-        openlist.add(startvertex)
-        closedlist = empty Current =null
-        while ( !openlist.isempty):
-            Current = remove vertex with min f from openlist
-            if (Current = goal)
-                return 1;
-            closedlist.add(Current)
-            for (each vertex v in outedges of Current ):
-                tempgofv = Current.g + weight(current,v)
-                if (tempgofv < v.g )
-                    v.prev = Current
-
-                    v.g = tempgofv
-                    v.f = v.g + v.h
-
-                    if v not in closedlist && v not in openlist
-                        openlist.add(v)
-                    if (in open list you might want to remove and add again
-                Return -1;
-         */
 
         // så længe der er indhold i Openlist kør while loop
         while(!Openlist.isEmpty()){
@@ -132,6 +111,14 @@ public class AStarGraph {
         double y = to.gety()-from.gety();
         double distance = Math.sqrt((x*x)+(y*y));
         return distance;
+    }
+
+    public ArrayList<Vertex> getVertices() {
+        return vertices;
+    }
+
+    public void setVertices(ArrayList<Vertex> vertices) {
+        this.vertices = vertices;
     }
 }
 
@@ -200,4 +187,10 @@ class Vertex implements Comparable<Vertex>{
             return -1;
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
+
 }

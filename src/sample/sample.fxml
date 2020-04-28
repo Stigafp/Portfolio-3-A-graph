@@ -37,16 +37,24 @@
    <center>
       <VBox prefHeight="366.0" prefWidth="433.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox onAction="#startVertexChoice" prefWidth="150.0" promptText="Choose vertex">
+            <ComboBox fx:id="comboStart" onAction="#startVertexChoice" prefWidth="150.0" promptText="Choose vertex">
                <VBox.margin>
                   <Insets top="38.0" />
                </VBox.margin>
             </ComboBox>
-            <ComboBox onAction="#destinationVertexChoice" prefWidth="150.0" promptText="Choose vertex">
+            <ComboBox fx:id="comboDestination" onAction="#destinationVertexChoice" prefWidth="150.0" promptText="Choose vertex">
                <VBox.margin>
                   <Insets top="72.0" />
                </VBox.margin>
             </ComboBox>
-         </children></VBox>
+            <ComboBox fx:id="comboEstimation" onAction="#estimationChoice" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets top="75.0" />
+               </VBox.margin>
+            </ComboBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin></VBox>
    </center>
 </BorderPane>
