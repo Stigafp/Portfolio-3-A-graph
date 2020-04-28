@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 
 import javax.swing.*;
 import java.util.Stack;
@@ -57,11 +58,14 @@ public class Controller {
         MyMaze.newconnection(H,J,4.41);
         MyMaze.newconnection(I,J,3.82);
 
+        return MyMaze;
+
         //Vertex J=null; //This must be changed
 
         // choise 1 skal være bruger input i GUI
         // A og J skal også være bruger input i GUI
 
+        /*
         if(MyMaze.A_Star(null, null, null))
         {
             System.out.println("Found a path");
@@ -85,8 +89,39 @@ public class Controller {
             System.out.println("DID NOT FIND A PATH!!");
 
         return MyMaze;
+        */
     }
 
+    public String printMyMaze(AStarGraph MyMaze, Vertex start, Vertex destination, String method) {
+
+        if(MyMaze.A_Star(start, destination, method))
+        {
+            System.out.println("Found a path");
+            Vertex pvertex = null;
+            Stack<Vertex> Path = new Stack<>();
+            int limit=0;
+            String temp = Path.pop().getid();
+
+            while (pvertex! = null)
+            {
+                Path.push(pvertex);
+                pvertex=pvertex.getPrev();
+
+            }
+            if(!Path.isEmpty())
+                limit = Path.size();
+            for(int i=0 ; i<limit-1 ; i++)
+                System.out.print(Path.pop().getid() +" - > ");
+
+            if (limit>0)
+                System.out.println(Path.pop().getid());
+
+        }
+        else
+            return "DID NOT FIND A PATH!!";
+
+
+    }
 
 
     @FXML
@@ -97,6 +132,11 @@ public class Controller {
 
     @FXML
     ComboBox comboEstimation;
+
+    @FXML
+    TextArea printArea;
+
+
 
 
 
@@ -132,6 +172,15 @@ public class Controller {
     void startPathfinder(ActionEvent event) {
         graphModel.A_Star((Vertex)comboStart.getValue(), (Vertex)comboDestination.getValue(), (String) comboEstimation.getValue());
     }
+
+    @FXML
+    void printPath(ActionEvent event) {
+        System.out.println("test print path");
+        printArea.appendText("test");
+        printArea.appendText(printMyMaze(graphModel, (Vertex)comboStart.getValue(), (Vertex)comboDestination.getValue(), (String) comboEstimation.getValue()));
+
+    }
+
 
     @FXML
     void exitButton(ActionEvent event) {
