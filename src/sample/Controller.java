@@ -101,6 +101,7 @@ public class Controller {
         comboStart.getItems().addAll(graphModel.getVertices());
         comboDestination.getItems().addAll(graphModel.getVertices());
 
+
     }
 
     @FXML
@@ -121,7 +122,8 @@ public class Controller {
 
     @FXML
     void startPathfinder(ActionEvent event) {
-
+        graphModel.A_Star((Vertex)comboStart.getValue(),(Vertex) comboDestination.getValue(), 1);
+        System.out.println();
     }
 
     @FXML
@@ -129,7 +131,4 @@ public class Controller {
         System.out.println("test");
         Platform.exit();
     }
-
-    // grapModel.A_Star
-
 }
