@@ -59,75 +59,28 @@ public class Controller {
         MyMaze.newconnection(I,J,3.82);
 
         return MyMaze;
+    }
 
-        //Vertex J=null; //This must be changed
-
-        // choise 1 skal være bruger input i GUI
-        // A og J skal også være bruger input i GUI
-
-        /*
-        if(MyMaze.A_Star(null, null, null))
-        {
-            System.out.println("Found a path");
-            Vertex pvertex = J;
+    public void printMyMaze( Vertex destination) {
+            Vertex pvertex = destination;
+            printArea.appendText("To " + destination.getid() + " Shortest length: " + destination.getf() + "\n");
             Stack<Vertex> Path = new Stack<>();
             int limit=0;
+
             while (pvertex!=null)
             {
                 Path.push(pvertex);
                 pvertex=pvertex.getPrev();
             }
             if(!Path.isEmpty())
-                limit =Path.size();
-            for(int i=0;i<limit-1;i++)
-                System.out.print(Path.pop().getid() +" - > ");
-            if (limit>0)
-                System.out.println(Path.pop().getid());
-
-        }
-        else
-            System.out.println("DID NOT FIND A PATH!!");
-
-        return MyMaze;
-        */
-    }
-
-    public String printMyMaze(AStarGraph MyMaze, Vertex start, Vertex destination, String method) {
-
-        if(MyMaze.A_Star(start, destination, method))
-        {
-            System.out.println("Found a path");
-            Vertex pvertex = destination;
-            Stack<Vertex> Path = new Stack<>();
-            int limit=0;
-            String temp = Path.pop().getid();
-
-            while (pvertex! = null)
-            {
-                Path.push(pvertex);
-                pvertex=pvertex.getPrev();
-
-            }
-            if(!Path.isEmpty())
                 limit = Path.size();
             for(int i=0 ; i<limit-1 ; i++)
-                System.out.print(Path.pop().getid() +" - > ");
-                printArea.appendText(Path.pop().getid());
+                printArea.appendText(Path.pop().getid() +" - > ");
 
             if (limit>0) {
-                System.out.println(Path.pop().getid());
-
+                printArea.appendText(Path.pop().getid());
             }
-
-        } else {
-            return "DID NOT FIND A PATH!!";
         }
-
-
-
-
-    }
-
 
     @FXML
     ComboBox comboStart;
@@ -141,36 +94,27 @@ public class Controller {
     @FXML
     TextArea printArea;
 
-
-
-
-
-
     public void initialize() {
         System.out.println();
         comboStart.getItems().addAll(graphModel.getVertices());
         comboDestination.getItems().addAll(graphModel.getVertices());
         ObservableList<String> estimationMethod = FXCollections.observableArrayList("Manhattan", "Euclidean");
         comboEstimation.getItems().addAll(estimationMethod);
-
     }
 
     @FXML
     void startVertexChoice(ActionEvent event) {
         System.out.println("Start vertex: " + comboStart.getValue());
-
     }
 
     @FXML
     void destinationVertexChoice(ActionEvent event) {
         System.out.println("Destination vertex: " + comboDestination.getValue());
-
     }
 
     @FXML
     void estimationChoice(ActionEvent event) {
         System.out.println("Estimation method: " + comboEstimation.getValue());
-
     }
 
     @FXML
@@ -180,10 +124,7 @@ public class Controller {
 
     @FXML
     void printPath(ActionEvent event) {
-        System.out.println("test print path");
-        printArea.appendText("test");
-        printArea.appendText(printMyMaze(graphModel, (Vertex)comboStart.getValue(), (Vertex)comboDestination.getValue(), (String) comboEstimation.getValue()));
-
+        printMyMaze((Vertex)comboDestination.getValue());
     }
 
 
