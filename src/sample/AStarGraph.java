@@ -25,7 +25,7 @@ public class AStarGraph {
 
     // Vertex start vælger start vertex. Vertex destination slut destination.
     // int choise vælger imellem Manhatte og Euclidean
-    public boolean A_Star(Vertex start, Vertex destination, int choice) {
+    public boolean A_Star(Vertex start, Vertex destination, String choice) {
         if (start==null || destination==null)
           return false;
 
@@ -41,7 +41,7 @@ public class AStarGraph {
         // estimeret afstand fra start til destination via choice
         for (int i = 0; i< getVertices().size(); i++)
         {
-            if(choice == 1)
+            if(choice =="Manhattan")
             getVertices().get(i).seth(Manhattan(getVertices().get(i),destination));
             else {
                 getVertices().get(i).seth(Euclidean(getVertices().get(i),destination));

@@ -62,7 +62,7 @@ public class Controller {
         // choise 1 skal være bruger input i GUI
         // A og J skal også være bruger input i GUI
 
-        if(MyMaze.A_Star(A, J, 1))
+        if(MyMaze.A_Star(null, null, null))
         {
             System.out.println("Found a path");
             Vertex pvertex = J;
@@ -102,33 +102,35 @@ public class Controller {
 
 
     public void initialize() {
-        System.out.println("lklklæ");
+        System.out.println();
         comboStart.getItems().addAll(graphModel.getVertices());
         comboDestination.getItems().addAll(graphModel.getVertices());
-        ObservableList<String> estimationMethod = FXCollections.observableArrayList("Manhatten", "Euclidean");
+        ObservableList<String> estimationMethod = FXCollections.observableArrayList("Manhattan", "Euclidean");
         comboEstimation.getItems().addAll(estimationMethod);
 
     }
 
     @FXML
     void startVertexChoice(ActionEvent event) {
-        System.out.print(comboStart.getValue());
+        System.out.println("Start vertex: " + comboStart.getValue());
 
     }
 
     @FXML
     void destinationVertexChoice(ActionEvent event) {
+        System.out.println("Destination vertex: " + comboDestination.getValue());
 
     }
 
     @FXML
     void estimationChoice(ActionEvent event) {
+        System.out.println("Estimation method: " + comboEstimation.getValue());
 
     }
 
     @FXML
     void startPathfinder(ActionEvent event) {
-        graphModel.A_Star(comboStart.getValue(), comboDestination.getValue(), comboEstimation.getValue());
+        graphModel.A_Star((Vertex)comboStart.getValue(), (Vertex)comboDestination.getValue(), (String) comboEstimation.getValue());
     }
 
     @FXML
@@ -136,7 +138,4 @@ public class Controller {
         System.out.println("test");
         Platform.exit();
     }
-
-    // grapModel.A_Star
-
 }
