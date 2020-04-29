@@ -45,14 +45,13 @@ public class AStarGraph {
             }
         }
 
-        start.setg(0.0);           // sætter afstanden fra sig selv til 0
+        start.setg(0.0);                // sætter afstanden fra sig selv til 0
         start.calculatef();
-        Openlist.offer(start);      // insætter start vertex hvis der er plads i Openlist
+        Openlist.offer(start);          // indsætter start vertex hvis der er plads i Openlist
 
         //Start algorithm
         System.out.println("Start Algorithm");
 
-        // implementer Astar algoritme
         // så længe der er indhold i Openlist kør while loop
         while(!Openlist.isEmpty()) {
             Current = Openlist.remove();     // igangværende vertex fjernes fra Openlist da den er aktiv
@@ -85,7 +84,7 @@ public class AStarGraph {
                 }
             }
         }
-        return false;   // printer "DID NOT FIND A PATH!!" fra Controller class
+        return false;
     }
 
     // vertikal afstand + horizontal afstand udregnet i positive tal
