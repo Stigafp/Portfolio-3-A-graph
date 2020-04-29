@@ -56,13 +56,12 @@ public class AStarGraph {
         // så længe der er indhold i Openlist kør while loop
         while(!Openlist.isEmpty()) {
             Current = Openlist.remove();     // igangværende vertex fjernes fra Openlist da den er aktiv
+            Closedlist.add(Current);        // tilføjer aktive vertex til Closedlist og går igennem Nabo vertex's
 
             if(Current == destination){
                 return true;
             }
 
-            // tilføjer aktive vertex til Closedlist og går igennem Nabo vertex's
-            Closedlist.add(Current);
             for (int i = 0; i < Current.getNeighbours().size(); i++) {
                 double weight = Current.getNeighbourDistance().get(i);     // udregner fra igangværende vertex, destinationen til vertex(i)
                 double tempGofV = Current.getg() + weight;
@@ -112,7 +111,7 @@ public class AStarGraph {
 }
 
 // data en vertex indeholder
-class Vertex implements Comparable<Vertex>{
+class Vertex implements Comparable<Vertex> {
     private ArrayList<Vertex> Neighbours = new ArrayList<Vertex>();
     private ArrayList<Double> NeighbourDistance = new ArrayList<Double>();
 
@@ -125,7 +124,7 @@ class Vertex implements Comparable<Vertex>{
     private Integer y;
     private Vertex prev = null;
 
-    // constructor kaldt fra main
+    // constructor kaldt fra controller
     public Vertex(String id, int x_cor,int y_cor){
         this.id = id;
         this.x = x_cor;

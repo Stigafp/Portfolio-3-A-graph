@@ -12,7 +12,6 @@ import java.util.Stack;
 public class Controller {
 
     AStarGraph graphModel = CreateGraph();
-    Vertex vertex;
 
     public AStarGraph CreateGraph() {
         System.out.println("creating graph");
